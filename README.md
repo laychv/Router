@@ -27,6 +27,8 @@ Don't know how to compute maven coordinate for artifact 'Gradle API' with compon
 
 原因：引入plugins的问题
 
+建错项目，如下，依然有问题
+
 ```
 plugins {
 //    `kotlin-dsl`// 引入外部插件时候才会使用
@@ -37,5 +39,21 @@ plugins {
 
 ## 自定义注解处理器
 
+依赖
+
+```
+plugins {
+  kotlin("kapt")
+}
+dependencies {
+  val autoService = "1.0-rc7"
+  kapt("com.google.auto.service", "auto-service", autoService)
+  compileOnly("com.google.auto.service", "auto-service-annotations", autoService)
+}
+```
+
+遇到的问题
+
+错误的添加依赖，错误的使用kapt，导致无法输出控制台日志
 
 https://docs.gradle.org/current/userguide/custom_plugins.html

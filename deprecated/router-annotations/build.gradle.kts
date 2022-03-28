@@ -6,11 +6,6 @@ plugins {
 //    `java-library-convention`
 }
 
-java {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
-}
-
 repositories {
     google()
     mavenCentral()
@@ -21,7 +16,7 @@ dependencies {
 }
 
 sourceSets {
-    main {
-        java.srcDir("src/main/kotlin")
-    }
+//    main { java.srcDir("src/main/kotlin") }
+    // 或者
+    getByName("main").java.srcDir("src/main/kotlin")
 }

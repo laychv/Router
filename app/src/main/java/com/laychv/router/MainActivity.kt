@@ -2,10 +2,9 @@ package com.laychv.router
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.laychv.router.annotations.Destination
+import com.laychv.annotation.Destination
 import com.laychv.router.databinding.ActivityMainBinding
 
-//@Destinations(url = "", destination = "")
 @Destination(url = "router://page-home", description = "应用主页")
 class MainActivity : AppCompatActivity() {
 
