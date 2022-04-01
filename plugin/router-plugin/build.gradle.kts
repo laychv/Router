@@ -1,6 +1,5 @@
 plugins {
     `kotlin-dsl`
-    id("org.jetbrains.kotlin.kapt") version "1.6.10"
 }
 
 repositories {
