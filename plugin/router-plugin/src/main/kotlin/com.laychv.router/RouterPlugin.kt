@@ -9,7 +9,6 @@ import org.gradle.api.Project
 import org.gradle.kotlin.dsl.create
 import java.io.File
 
-
 /**
  * 插件部分
  * 接收kapt参数，失败
@@ -63,57 +62,52 @@ class RouterPlugin : Plugin<Project> {
         }
 
         // 清理生成的文件
-        val routerMappingDir = File(target.rootProject.projectDir, DIR)
+        val routerMappingDir = File(target.rootProject.projectDir, "router-mapping")
         if (routerMappingDir.exists()) {
             routerMappingDir.deleteRecursively()
         }
         println("显示生成的路径：$routerMappingDir===========")
 
-//        target.extensions.create(PLUGIN_NAME, RouterExtension::class.java)
+//        target.afterEvaluate {
+//            val wikiDir = extensions.getByType(RouterExtension::class.java).wikiDir.get()
+//            println("--=-=-= $wikiDir")
+//
+//            target.tasks.findAll(Closure.IDENTITY).forEach {
+//                if (name.startsWith("compiler") && name.endsWith("JavaWithJavac")) {
+//                    val file = File(rootProject.project.projectDir, "router-mapping")
+//                    if (file.exists().not()) {
+//                        return@forEach
+//                    }
+//                    val sbMarkDown = StringBuilder()
+//                    sbMarkDown.append("# 页面文档 \n\n")
+//                    file.listFiles()?.forEach { child ->
+//                        if (sbMarkDown.endsWith(".json")) {
+//                            val js = JsonSlurper()
+//                            val content = js.parse(child)
+//                            sbMarkDown.append("")
+//                            sbMarkDown.append("")
+//                            sbMarkDown.append("")
+//                        }
+//                    }
+//
+//                    val wikiFileDir = File(wikiDir)
+//                    if (!wikiFileDir.exists()) {
+//                        wikiFileDir.mkdir()
+//                    }
+//
+//                    val wikiFile = File(wikiFileDir, "页面文档.md")
+//                    if (wikiFile.exists()) {
+//                        wikiFile.delete()
+//                    }
+//                    wikiFile.writeText(sbMarkDown.toString())
+//                }
+//            }
+//        }
 
-        val extension = target.extensions.create<RouterExtension>(PLUGIN_NAME)
+        val extension = target.extensions.create<RouterExtension>("router")
         target.afterEvaluate {
             val wikiDir = extension.wikiDir.get()
             println("用户WIKI路径为：${wikiDir}")
-
-            target.tasks.findAll(Closure.IDENTITY).forEach { task ->
-                task.doLast {
-                    val file = File(rootProject.projectDir, DIR)
-                    if (file.exists().not()) {
-                        return@doLast
-                    }
-                    val sbMarkDown = StringBuilder()
-                    sbMarkDown.append("# 页面文档 \n\n")
-                    file.listFiles()?.forEach { child ->
-                        println("内部文件夹：$child")
-                        // 解析router-mapping文件夹中的.json文件，写入.md中
-                        if (child.name.endsWith(".json")) {
-                            // groovy/each + kotlin = 🤦‍
-                            val js = JsonSlurper()
-                            val content = js.parse(child) as ArrayList<Map<String, String>>
-                            content.forEach {
-                                val url = it["url"]
-                                val description = it["description"]
-                                val realPath = it["realPath"]
-                                sbMarkDown.append("## $description\n")
-                                sbMarkDown.append("- $url\n")
-                                sbMarkDown.append("- $realPath\n\n")
-                            }
-                        }
-                    }
-
-                    val wikiFileDir = File(wikiDir)
-                    if (!wikiFileDir.exists()) {
-                        wikiFileDir.mkdir()
-                    }
-
-                    val wikiFile = File(wikiFileDir, MD_NAME)
-                    if (wikiFile.exists()) {
-                        wikiFile.delete()
-                    }
-                    wikiFile.writeText(sbMarkDown.toString())
-                }
-            }
         }
     }
 }

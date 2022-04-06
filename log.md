@@ -48,10 +48,13 @@ dependencies {
 
 错误的添加依赖，错误的使用kapt，导致无法输出控制台日志
 
-
 ## 遗留的问题
 
 - plugin中无法动态获取kapt参数
 - 生成jar包失败，不确定是否和kapt有关
+- kotlin字节码生成文件失败，54.jar空文件
+- app-lib无法生成RouterMapping文件
+
+/Users/laychv/Projects/Router/app/build/intermediates/transforms/RouterTransform/debug
 
 https://docs.gradle.org/current/userguide/custom_plugins.html

@@ -1,6 +1,6 @@
 plugins {
 //    id("java-library")
-//    id("org.jetbrains.kotlin.jvm")
+//    id("org.jetbrains.kotlin.jvm") version "1.6.10"
     kotlin("jvm")
     kotlin("kapt")
 }

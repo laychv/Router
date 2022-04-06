@@ -6,3 +6,7 @@ Gradle-Router-KTS版，实现页面路由，收集Activity页面信息，输出�
 - 自定义注解处理器
 - 自定义Plugin
 - ASM-Transform
+
+- 运行sh脚本
+  - 创建run.sh
+  - sh run.sh

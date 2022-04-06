@@ -16,6 +16,9 @@ import javax.lang.model.element.Element
 import javax.lang.model.element.TypeElement
 import javax.tools.StandardLocation
 
+/**
+ * 生成kt文件，json文件
+ */
 @AutoService(Processor::class)
 class DestinationProcessor : AbstractProcessor() {
 
@@ -45,7 +48,7 @@ class DestinationProcessor : AbstractProcessor() {
 
         val sb = StringBuilder()
         sb.append("package com.laychv.router.mapping\n\n")
-        sb.append("class $className {\n\n")
+        sb.append("object $className {\n\n")
         sb.append("    fun get(): Map<String, String> {\n")
         sb.append("        val mapping = HashMap<String, String>()\n")
 
@@ -126,76 +129,6 @@ class DestinationProcessor : AbstractProcessor() {
 
         println("$TAG >>>> processor end... <<<<")
 
-        return false
-    }
-
-    // 拿到kapt的传参路径
-    private fun getRootProjectDir(): String? {
-        val path = processingEnv.options["root_project_dir"]
-        println("------看到表示获取到路径：$path")
-        return path
-    }
-
-    // 生成kt文件
-    private fun generateKt(p1: RoundEnvironment): Boolean {
-        val className = "RouterMapping_" + System.currentTimeMillis()
-
-        val sb = StringBuilder()
-        sb.append("package com.laychv.router.mapping\n\n")
-        sb.append("class $className {\n\n")
-        sb.append("    fun get(): Map<String, String> {\n")
-        sb.append("        val mapping = HashMap<String, String>()\n")
-
-        // 获取注解的所有信息，即Destination的所有信息
-        val elements = p1.getElementsAnnotatedWith(Destination::class.java) as Set<Element>
-        if (elements.isEmpty()) {
-            return false
-        }
-        println("$TAG >>>> all element size : ${elements.size}")
-        val jsonArray = JsonArray()
-        for (element in elements) {
-            val typeElement = element as TypeElement
-            val destination = typeElement.getAnnotation(Destination::class.java) ?: continue
-            val realPath = typeElement.qualifiedName.toString()// 获取真实的路径
-            val url = destination.url
-            val description = destination.description
-            println("$TAG >> processor-url: $url")
-            println("$TAG >> processor-description: $description")
-            println("$TAG >> processor-realPath: $realPath")
-
-            sb.append("        mapping[\"${url}\"]" + " = " + "\"${realPath}\"\n")
-            val item = JsonObject()
-            item.addProperty("url", url)
-            item.addProperty("description", description)
-            item.addProperty("realPath", realPath)
-            jsonArray.add(item)
-        }
-        sb.append("        return mapping\n")
-        sb.append("    }\n")
-        sb.append("}\n")
-
-        val packageName = "com.laychv.router.mapping"
-        val fullPath = "com.laychv.router.mapping.$className"
-        println("$TAG > $fullPath")
-        println("$TAG > $sb\n")
-
-        // 写入build文件
-        try {
-//            val file = processingEnv.filer.createSourceFile(fullPath)// java 💁🏻‍️
-            // createResource(输出类型，包名，文件名)
-            val file = processingEnv.filer.createResource(
-                StandardLocation.CLASS_OUTPUT,
-                packageName,
-                "${className}.kt"
-            )
-            val writer = file.openWriter()
-            writer.write(sb.toString())
-            writer.flush()
-            writer.close()
-            println(">>>>>>> show file name: ${file.name}")
-        } catch (e: Exception) {
-            println("$TAG >>>>>>>>>> Error: $e")
-        }
         return false
     }
 }

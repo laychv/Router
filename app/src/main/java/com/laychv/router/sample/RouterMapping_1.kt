@@ -1,6 +1,6 @@
 package com.laychv.router.sample
 
-class RouterMapping_009 {
+object RouterMapping_1 {
 
     fun get(): Map<String, String> {
         val mapping = HashMap<String, String>()
