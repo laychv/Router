@@ -3,6 +3,7 @@ plugins {
 //    id("org.jetbrains.kotlin.jvm") version "1.6.10"
     kotlin("jvm")
     kotlin("kapt")
+    `maven-publish`
 }
 
 //java {
@@ -23,4 +24,26 @@ dependencies {
     kapt("com.google.auto.service", "auto-service", autoService)
     compileOnly("com.google.auto.service", "auto-service-annotations", autoService)
     implementation("com.google.code.gson:gson:2.8.6")
+    implementation("com.squareup:javapoet:1.13.0")
+}
+
+publishing {
+    publications {
+        create("publishing", MavenPublication::class.java) {
+            groupId = "com.laychv.router"
+            artifactId = "router-processor"
+            version = "1.0.0"
+            from(components["java"])
+        }
+    }
+    repositories {
+        maven {
+            name = "external"
+            url = uri(layout.buildDirectory.dir("../repos/external"))
+        }
+        maven {
+            name = "internal"
+            url = uri(layout.buildDirectory.dir("../repos/internal"))
+        }
+    }
 }

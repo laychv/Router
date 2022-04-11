@@ -29,7 +29,6 @@ class DestinationProcessor : AbstractProcessor() {
     }
 
     override fun getSupportedAnnotationTypes(): MutableSet<String> {
-        println("为啥没有日志输出呢！！！！")
         return Collections.singleton(Destination::class.java.canonicalName)
     }
 

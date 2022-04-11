@@ -57,7 +57,8 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.3.0")
     implementation("com.google.android.material:material:1.4.0")
     implementation("androidx.constraintlayout:constraintlayout:2.0.4")
+    implementation(project(":app-lib"))
     implementation(project(":router-annotation"))
     kapt(project(":router-processor"))
-    implementation(project(":app-lib"))
+    implementation(project(":router-runtime"))
 }
