@@ -1,4 +1,4 @@
-package com.laychv.router
+package com.laychv.router.plugin
 
 import java.io.File
 import java.util.jar.JarEntry

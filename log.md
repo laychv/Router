@@ -48,6 +48,16 @@ dependencies {
 
 错误的添加依赖，错误的使用kapt，导致无法输出控制台日志
 
+独立插件无法使用，报错，因为router-plugin中不能引入 
+- classpath("com.android.tools.build:gradle:7.1.3")
+  或者
+- plugin {id("com.android.tools.build:gradle:7.1.3")}
+
+```
+org.gradle.internal.exceptions.LocationAwareException: Build file '/Users/laychv/Projects/Router/app/build.gradle.kts' line: 1
+Plugin [id: 'com.laychv.plugin.router'] was not found in any of the following sources:
+```
+
 ## 遗留的问题
 
 - plugin中无法动态获取kapt参数

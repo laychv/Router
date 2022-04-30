@@ -13,7 +13,8 @@ dependencies {
     implementation(gradleKotlinDsl())
     implementation(localGroovy())
     implementation(kotlin("stdlib"))
-    implementation("com.android.tools.build:gradle:7.1.1")
+    implementation("org.ow2.asm:asm:9.1")
+    implementation("org.ow2.asm:asm-commons:9.1")
 }
 
 sourceSets.getByName("main") {
@@ -23,8 +24,8 @@ sourceSets.getByName("main") {
 gradlePlugin {
     plugins {
         create("RouterPlugin") {
-            id = "com.laychv.router"
-            implementationClass = "com.laychv.router.RouterPlugin"
+            id = "com.laychv.router.plugin"
+            implementationClass = "com.laychv.router.plugin.RouterPlugin"
         }
     }
 }

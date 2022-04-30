@@ -1,4 +1,4 @@
-package com.laychv.router
+package com.laychv.router.plugin
 
 import org.objectweb.asm.ClassWriter
 import org.objectweb.asm.Opcodes

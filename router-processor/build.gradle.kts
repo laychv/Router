@@ -23,7 +23,7 @@ dependencies {
     val autoService = "1.0-rc7"
     kapt("com.google.auto.service", "auto-service", autoService)
     compileOnly("com.google.auto.service", "auto-service-annotations", autoService)
-    implementation("com.google.code.gson:gson:2.8.6")
+    implementation("com.google.code.gson:gson:2.8.9")
     implementation("com.squareup:javapoet:1.13.0")
 }
 
