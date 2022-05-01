@@ -1,8 +1,10 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-//    id("com.laychv.router")
+    id("com.laychv.router")
+    // 独立插件找不到原因，1.gradlePlugin
     id("com.laychv.router.plugin")
+    id("com.laychv.retrofit.plugin")
     kotlin("kapt")
 }
 

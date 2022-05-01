@@ -1,7 +1,7 @@
 package com.laychv.router.plugin
 
-//import com.android.build.gradle.AppExtension
-//import com.android.build.gradle.internal.plugins.AppPlugin
+import com.android.build.gradle.AppExtension
+import com.android.build.gradle.AppPlugin
 import groovy.json.JsonSlurper
 import groovy.lang.Closure
 import org.gradle.api.Plugin
@@ -20,10 +20,10 @@ class RouterPlugin : Plugin<Project> {
     override fun apply(target: Project) {
 
         // transform
-//        if (target.plugins.hasPlugin(AppPlugin::class.java)) {
-//            val appExtension = target.extensions.getByType(AppExtension::class.java)
-//            appExtension.registerTransform(RouterTransform())
-//        }
+        if (target.plugins.hasPlugin(AppPlugin::class.java)) {
+            val appExtension = target.extensions.getByType(AppExtension::class.java)
+            appExtension.registerTransform(RouterTransform())
+        }
 
         // 动态获取kapt的参数，由于未实现，导致app-lib需要手动配置，导致无法获取app-lib中的路由信息
         // kotlin 遍历整个项目工程，找到subprojects
@@ -57,9 +57,9 @@ class RouterPlugin : Plugin<Project> {
 //        val ss = target.extensions.getByType(KaptExtension::class.java)
 //        println("$ss  <<<< router:为啥什么都没有呢！！！！")
 
-//        if (target.plugins.hasPlugin(AppPlugin::class.java).not()) {
-//            return
-//        }
+        if (target.plugins.hasPlugin(AppPlugin::class.java).not()) {
+            return
+        }
 
         // 清理生成的文件
         val routerMappingDir = File(target.rootProject.projectDir, DIR)

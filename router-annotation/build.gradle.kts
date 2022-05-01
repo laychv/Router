@@ -1,6 +1,4 @@
 plugins {
-//    id("java-library")
-//    id("org.jetbrains.kotlin.jvm") version "1.6.10"
     kotlin("jvm")
     `maven-publish`
 }
@@ -27,14 +25,8 @@ publishing {
     }
     repositories {
         maven {
-            name = "external"
-            url = uri(rootProject.projectDir.absolutePath + "repos/external")
-//                uri(layout.buildDirectory.dir(rootProject.projectDir.absolutePath + "repos/external"))
-        }
-        maven {
             name = "internal"
-            url = uri(rootProject.projectDir.absolutePath + "repos/internal")
-//                uri(layout.buildDirectory.dir(rootProject.projectDir.absolutePath + "repos/internal"))
+            url = uri(layout.projectDirectory.dir("../repos"))
         }
     }
 }

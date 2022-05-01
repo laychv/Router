@@ -35,12 +35,8 @@ publishing {
     }
     repositories {
         maven {
-            name = "external"
-            url = uri(layout.buildDirectory.dir("../repos/external"))
-        }
-        maven {
             name = "internal"
-            url = uri(layout.buildDirectory.dir("../repos/internal"))
+            url = uri(layout.buildDirectory.dir("../repos"))
         }
     }
 }
